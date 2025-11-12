@@ -9,7 +9,7 @@ Original file is located at
 
 #!pip install python-telegram-bot python-dotenv
 
--m pip install python-telegram-bot nest-asyncio
+#-m pip install python-telegram-bot nest-asyncio
 
 import os
 import logging
