@@ -261,9 +261,9 @@ async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-    if not TOKEN:
-        logger.error("TELEGRAM_BOT_TOKEN не установлен")
-        return
+    #if not TOKEN:
+    #    logger.error("TELEGRAM_BOT_TOKEN не установлен")
+    #    return
     # Создаем и настраиваем приложение
     application = Application.builder().token(TOKEN).build()
     
@@ -281,19 +281,19 @@ def main():
     application.add_handler(conv_handler)
     application.add_error_handler(error_handler)
 
-PORT = int(os.environ.get("PORT", 8443))
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-        logger.info("Запуск в режиме вебхука")
-        application.run_webhook(
-            listen="0.0.0.0",
-            port=PORT,
-            url_path=TOKEN,
-            webhook_url=f"https://{RENDER_EXTERNAL_HOSTNAME}/{TOKEN}"
-        )
-else:
-        logger.info("Запуск в режиме polling")
-        application.run_polling()
+    PORT = int(os.environ.get("PORT", 8443))
+    RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+    if RENDER_EXTERNAL_HOSTNAME:
+            logger.info("Запуск в режиме вебхука")
+            application.run_webhook(
+                listen="0.0.0.0",
+                port=PORT,
+                url_path=TOKEN,
+                webhook_url=f"https://{RENDER_EXTERNAL_HOSTNAME}/{TOKEN}"
+            )
+    else:
+            logger.info("Запуск в режиме polling")
+            application.run_polling()
 
 
 if __name__ == '__main__':
